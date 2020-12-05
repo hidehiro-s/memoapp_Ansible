@@ -1,0 +1,14 @@
+- hosts: all
+  roles:
+    - git
+    #- nodejs
+    - ruby
+    - mysql
+    - rails
+    - nginx
+    - application
+    - unicorn
+  vars_files:
+    - vars/common.yml
+
+#上から順に実行。順番が大事。

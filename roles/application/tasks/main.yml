@@ -1,0 +1,49 @@
+- name: git clone https://github.com/hidehiro-s/{{ application_name }}.git
+  git:
+    repo: https://github.com/hidehiro-s/{{ application_name }}.git
+    dest: /home/ec2-user/memoapp/
+  tags:
+    - application
+    - application:setup
+
+- name: Put .env
+  template:
+    src: roles/application/templates/.env.j2
+    dest: ~/{{ application_name }}/.env
+  tags:
+    - application:setup
+
+- name: Put master.key
+  template:
+    src: roles/application/templates/master.key
+    dest: ~/{{  application_name }}/config/master.key
+  tags:
+    - application:setup
+
+#- name: Install Minimagic
+#  become: yes
+#  yum:
+#    name: ImageMagick
+#  tags:
+#    - application:setup
+
+- name: bundle install
+  shell: cd ~/{{ application_name }}; bundle install
+  tags:
+    - application:setup
+
+- name: rails db:migrate
+  shell: cd ~/{{ application_name }}; rails db:migrate RAILS_ENV=production
+  tags:
+    - application:setup
+
+- name: rails db:seed
+  ignore_errors: yes
+  shell: cd ~/{{ application_name }}; rails db:seed RAILS_ENV=production
+  tags:
+    - application:setup
+
+- name: rails assets:precompile
+  shell: cd ~/{{ application_name }}; rails assets:precompile
+  tags:
+    - application:setup

@@ -1,0 +1,7 @@
+- name: Launch unicorn
+  ignore_errors: yes
+  shell: cd ~/{{ application_name }}; bundle exec unicorn_rails -c config/unicorn.rb -E production -D
+  tags:
+    - unicorn
+
+#UnicornはGemfileでインストール

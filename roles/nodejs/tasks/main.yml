@@ -1,0 +1,17 @@
+- name: Setup nodejs10.x
+  shell: curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash -
+  tags:
+    - nodejs
+
+- name: Installing latest version of node.js
+  become: yes
+  yum:
+    name: nodejs
+    state: latest
+  tags:
+    - nodejs
+    - nodejs:install
+    - install
+
+# curlコマンドでshellの実行。冪等生の観点からAnsible的には非推奨。
+# 今回のメモアプリにnodejsは不要なのでproduction.ymlで不使用にする。

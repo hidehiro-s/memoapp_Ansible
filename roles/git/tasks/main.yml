@@ -1,0 +1,10 @@
+- name: install by Git
+  yum:
+    name:
+      - git
+  become: yes
+  tags:
+    - git
+
+# nameは必要。tagは無くても良い。
+# - で複数実行できるが、roleはインストールするもの単位で分けた方がわかりやすいかも。

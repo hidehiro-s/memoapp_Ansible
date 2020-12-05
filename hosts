@@ -1,0 +1,9 @@
+[web]
+memoapp-ec2
+
+##[web2]
+#memoapp-ec2-2
+
+#SSH接続名称。SSH/configで設定。[web]はグループ名。
+#認証キー情報とIPでも設定可能。
+#構成管理サーバーが増えたら、memoapp-ec2−2等も設定可能。
